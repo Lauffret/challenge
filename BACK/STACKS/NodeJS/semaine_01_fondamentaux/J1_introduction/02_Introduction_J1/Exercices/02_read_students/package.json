@@ -1,10 +1,10 @@
 {
-  "name": "02_students",
+  "name": "02_read_students",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
