@@ -1,5 +1,8 @@
 const fs = require("fs");
 
+const FILE_STUDENT = './Data/students.txt';
+const FILE_STUDENT2 = './Data/students2.txt';
+const PRECISION = 100;
 /** 
 1. Lisez le fichier à l'aide de la méthode asynchrone. 
 
@@ -24,7 +27,7 @@ const fs = require("fs");
 // 1.
 // On utilise le tableau de manière globale pour traiter chacune des questions
 
-fs.readFile("./Data/students.txt", "utf8", (err, data) => {
+fs.readFile(FILE_STUDENT, "utf8", (err, data) => {
   // Gestion des erreurs
   if (err) {
     console.error(err);
@@ -40,7 +43,7 @@ fs.readFile("./Data/students.txt", "utf8", (err, data) => {
 // ici le tableau st sera utiliser dans un contexte synchrone aucun problème pour la suite du script. Par contre si c'est asynchrone comme dans la fonctionc readFile vous devez mettre tout le code dans la fonction de callback
 let st = [];
 try {
-  st = fs.readFileSync("./Data/students.txt", "utf8").split(/\r?\n/);
+  st = fs.readFileSync(FILE_STUDENT, "utf8").split(/\r?\n/);
   st = st.filter((data) => data != "");
 } catch (err) {
   console.error(err);
@@ -91,3 +94,35 @@ console.log(students);
 students.sort((a, b) => a.note - b.note)
 
 console.log(students);
+
+// 6
+(function () {
+
+  const { appendFileSync, open, writeFileSync, readFileSync } = fs;
+
+  /**
+  - 18 Sonia Paris
+  - 17 Clarisse Marseille
+   */
+
+
+  for (const st of ["\n", "16 Sonia Paris", "\n", "20 Clarisse Marseille"]) {
+    appendFileSync(FILE_STUDENT, st);
+  }
+
+  const students = readFileSync(FILE_STUDENT, "utf8").split(/\r?\n/);
+
+  for (const st of students) appendFileSync(FILE_STUDENT2, st + "\n", "utf8");
+
+})();
+
+// 8
+
+console.log(students.map(st => parseFloat(st.note)));
+let sum = students.map(st => parseFloat(st.note)).reduce((acc, curr) => acc + curr);
+const len = students.length;
+if (len > 0) {
+  const avg = Math.floor(sum / len * PRECISION) / PRECISION;
+
+  console.log(avg);
+}
