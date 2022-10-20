@@ -11,7 +11,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
 
     volumes: 
-      - $PWD/data:/data/db
+      - ./data:/data/db
 
   web:
     container_name: docker_node_web
@@ -22,6 +22,6 @@ services:
       - mongo
     volumes: 
       - /app/node_modules
-      - $PWD/app:/app
+      - ./app:/app
     ports: 
       - "3002:3002"

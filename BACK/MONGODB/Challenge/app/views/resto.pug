@@ -1,0 +1,25 @@
+extends layout.pug
+
+block content
+    h1 Find Resto by name 
+
+    modal-dialog.mb-2
+        .modal-content
+          .modal-header
+            h4#myModalLabel.modal-title
+              | Search Resto
+          .modal-body
+            form(role='form' method='GET' action='/resto')
+              div.form-group
+                label(for='name') Name:
+                input#name.form-control(type='text', placeholder='name' name='name')
+                input#name.form-control(type="submit", value="Search")
+
+    div.list-group.w-auto
+        each resto in restos
+            div.d-flex.gap-2.w-100.justify-content-between
+                div
+                    h6.mb-0= resto.name
+                    p.mb-0= resto.cuisine
+                    p.mb-0.opacity-75= resto.address.building  +" "+ resto.address.street +" "+ resto.address.zipcode +" "+ resto.borough
+        
